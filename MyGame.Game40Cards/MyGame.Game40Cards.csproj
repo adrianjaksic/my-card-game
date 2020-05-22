@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A173591E-7A1E-4425-A77C-1D29FBB612AC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>MyGame.Game40</RootNamespace>
-    <AssemblyName>MyGame.Game40</AssemblyName>
+    <ProjectGuid>{8A0D8F81-A7CE-434A-AF25-C5961B9F6121}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyGame.Game40Cards</RootNamespace>
+    <AssemblyName>MyGame.Game40Cards</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,16 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Realization\Game40.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Game40.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MyGame.BaseGame\MyGame.BaseGame.csproj">
-      <Project>{93d1d4e2-8f44-47a2-82db-68415f3a0d7a}</Project>
+      <Project>{93D1D4E2-8F44-47A2-82DB-68415F3A0D7A}</Project>
       <Name>MyGame.BaseGame</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{93D1D4E2-8F44-47A2-82DB-68415F3A0D7A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyGame.BaseGame</RootNamespace>
-    <AssemblyName>MyGame.BaseGame</AssemblyName>
+    <ProjectGuid>{2ED36FF4-524B-45D2-B8C9-4E6D55993F79}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyGame.Console</RootNamespace>
+    <AssemblyName>MyGame.Console</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,18 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\StackExtensions.cs" />
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\GameManager.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shuffle\FisherYatesShuffler.cs" />
-    <Compile Include="Shuffle\IShuffler.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyGame.BaseGame\MyGame.BaseGame.csproj">
+      <Project>{93D1D4E2-8F44-47A2-82DB-68415F3A0D7A}</Project>
+      <Name>MyGame.BaseGame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyGame.Game40Cards\MyGame.Game40Cards.csproj">
+      <Project>{8A0D8F81-A7CE-434A-AF25-C5961B9F6121}</Project>
+      <Name>MyGame.Game40Cards</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyGame.TextGame\MyGame.TextGame.csproj">
+      <Project>{31989583-BC26-455C-8618-1F3FCBA89890}</Project>
+      <Name>MyGame.TextGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,22 +5,22 @@ namespace MyGame.BaseGame.Extensions
 {
     public static class StackExtensions
     {
-        public static void AddToStackAndEmptySource<T>(this Stack<T> obj, Stack<T> source)
+        public static void AddToStackAndEmptySource<T>(this Stack<T> source, Stack<T> stack)
         {
-            while (source.Count > 0)
+            while (stack.Count > 0)
             {
-                var item = source.Pop();
-                obj.Push(item);
+                var item = stack.Pop();
+                source.Push(item);
             }
         }
 
-        public static void AddToStackAndEmptySource<T>(this Stack<T> obj, List<T> source)
+        public static void AddToStackAndEmptySource<T>(this Stack<T> source, List<T> items)
         {
-            foreach (var item in source)
+            foreach (var item in items)
             {
-                obj.Push(item);
+                source.Push(item);
             }
-            source.Clear();
+            items.Clear();
         }
     }
 }

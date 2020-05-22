@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyGame.BaseGame\MyGame.BaseGame.csproj" />
-    <ProjectReference Include="..\MyGame.Game40\MyGame.Game40Implementarion.csproj" />
+    <ProjectReference Include="..\MyGame.Game40Cards\MyGame.Game40Cards.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyGame.BaseGame.Models;
-using MyGame.Game40Implementation.Realization;
 using System.Collections.Generic;
 using MyGame.BaseGame.Extensions;
+using MyGame.Game40Cards;
 
 namespace MyGame.Tests
 {

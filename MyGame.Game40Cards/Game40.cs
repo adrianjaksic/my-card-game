@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyGame.Game40Implementation.Realization
+namespace MyGame.Game40Cards
 {
     public class Game40 : Game
     {
