@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyGame.BaseGame.Models
+namespace MyGame.BaseGame.Game
 {
     public abstract class Game
     {

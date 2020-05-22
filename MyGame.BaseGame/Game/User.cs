@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyGame.BaseGame.Models
+namespace MyGame.BaseGame.Game
 {
     public class User
     {

@@ -1,5 +1,5 @@
 ﻿using MyGame.BaseGame.Extensions;
-using MyGame.BaseGame.Models;
+using MyGame.BaseGame.Game;
 using MyGame.BaseGame.Shuffle;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using MyGame.BaseGame.Models;
+﻿using MyGame.BaseGame.Game;
 using System;
 using System.Text;
 

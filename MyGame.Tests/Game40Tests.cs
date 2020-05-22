@@ -1,8 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyGame.BaseGame.Models;
+using MyGame.BaseGame.Game;
 using System.Collections.Generic;
 using MyGame.BaseGame.Extensions;
 using MyGame.Game40Cards;
+using Moq;
+using MyGame.TextGame;
 
 namespace MyGame.Tests
 {
@@ -91,6 +93,21 @@ namespace MyGame.Tests
 
             game.DoRound();
             Assert.AreEqual(game.Users[1], game.RoundWinner);
+        }
+
+        [TestMethod]
+        public void GameEndsAtTheBegginingIfThereIsAWinner()
+        {
+            Mock<Game40> game = new Mock<Game40>(UserNames);                        
+            game.Setup(x => x.GetWinner()).Returns(new User("mocked"));
+            game.Setup(x => x.DoRound()).Verifiable();
+
+            var manager = new TextGameManager(game.Object);
+            manager.NewGame();
+
+            game.Verify(m => m.GetWinner(), Times.AtLeastOnce);
+            game.Verify(m => m.DoRound(), Times.Never);
+
         }
     }
 }

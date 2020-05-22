@@ -1,4 +1,4 @@
-﻿namespace MyGame.BaseGame.Models
+﻿namespace MyGame.BaseGame.Game
 {
     public class Card
     {
