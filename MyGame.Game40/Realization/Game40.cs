@@ -1,4 +1,5 @@
-﻿using MyGame.BaseGame.Models;
+﻿using MyGame.BaseGame.Extensions;
+using MyGame.BaseGame.Models;
 using MyGame.BaseGame.Shuffle;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,17 @@ namespace MyGame.Game40Implementation.Realization
 {
     public class Game40 : Game
     {
-        public Game40(IShuffler<Card> shuffler) : base("Game40")
+        private const int NumberOfCardsInDeck = 40;
+
+        #region Constructors
+
+        public Game40(IShuffler<Card> shuffler, List<string> userNames) : base("Game40", shuffler)
         {
-            _shuffler = shuffler;
             CreateDeck();
+            SetUsers(userNames);
         }
 
-        public Game40() : this(new FisherYatesShuffler<Card>()) { }
-
-        private IShuffler<Card> _shuffler;
-
-        private const int NumberOfCardsInDeck = 40;
+        public Game40(List<string> userNames) : this(new FisherYatesShuffler<Card>(), userNames) { }
 
         private void CreateDeck()
         {
@@ -37,36 +38,32 @@ namespace MyGame.Game40Implementation.Realization
             PlayedDeck = new Stack<Card>();
         }
 
-        #region NewGame
-        public override void NewGame(List<string> names)
+        private void SetUsers(List<string> userNames)
         {
-            if (names == null)
+            if (userNames != null)
             {
-                throw new ArgumentNullException("name");
+                Users = new List<User>();
+                foreach (var user in userNames)
+                {
+                    Users.Add(new User(user));
+                }
             }
-            if (names.Count != 2)
-            {
-                throw new ArgumentException("name");
-            }
-
-            SetUsers(names);
-            SuffleDeck();
-            DistributeDecksPerUsers();
         }
 
-        private void SetUsers(List<string> names)
+        #endregion
+
+        #region NewGame
+
+        public override void NewGame()
         {
-            Users = new List<User>();
-            foreach (var name in names)
+            if (Users == null || Users.Count != 2)
             {
-                Users.Add(new User(name));
+                throw new ApplicationException("User number not right.");
             }
             RoundWinner = null;
-        }
-
-        private void SuffleDeck()
-        {
-            Deck = new Stack<Card>(_shuffler.Shuffle(Deck.ToList()));
+            GetCardsBackToDeck();            
+            ShuffleDeck();
+            DistributeDecksPerUsers();
         }
 
         private void DistributeDecksPerUsers()
@@ -86,29 +83,15 @@ namespace MyGame.Game40Implementation.Realization
 
         public override void DoRound()
         {
-            UseDiscardPile();
             PlayCard();
             SetRoundWinner();
-        }
-
-        private void UseDiscardPile()
-        {
-            var usersWithoutCard = Users.Where(u => !u.DrawPile.Any()).ToList();
-            foreach (var user in usersWithoutCard)
-            {
-                user.DrawPile = new Stack<Card>(new FisherYatesShuffler<Card>().Shuffle(user.DiscardPile));
-                user.DiscardPile.Clear();
-            }
         }
 
         private void PlayCard()
         {
             foreach (var user in Users)
             {
-                if (user.DrawPile.Any())
-                {
-                    user.Played = user.DrawPile.Pop();
-                }
+                DrawCardFromDeck(user);
             }
         }
 
@@ -149,7 +132,7 @@ namespace MyGame.Game40Implementation.Realization
                     user.Played = null;
                 }
             }
-            base.RoundWinner = null;
+            RoundWinner = null;
         }
 
         private void AddCardsToWinner()
@@ -158,14 +141,13 @@ namespace MyGame.Game40Implementation.Realization
             {
                 if (PlayedDeck.Any())
                 {
-                    RoundWinner.DiscardPile.AddRange(PlayedDeck);
-                    PlayedDeck.Clear();
+                    RoundWinner.DiscardPile.AddToStackAndEmptySource(PlayedDeck);
                 }
                 foreach (var user in Users)
                 {
                     if (user.Played != null)
                     {
-                        RoundWinner.DiscardPile.Add(user.Played);
+                        RoundWinner.DiscardPile.Push(user.Played);
                         user.Played = null;
                     }
                 }

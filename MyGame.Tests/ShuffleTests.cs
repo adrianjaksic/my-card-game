@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyGame.BaseGame.Shuffle;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyGame.Tests
 {
@@ -41,7 +42,7 @@ namespace MyGame.Tests
         [TestMethod]
         public void TestIfShuffleChangeTheOrder()
         {
-            var shuffledNumbers = _shuffler.Shuffle(_numbers);
+            var shuffledNumbers = _shuffler.Shuffle(_numbers).ToList();
             var different = false;
             for (int i = 0; i < NumbersCount; i++)
             {

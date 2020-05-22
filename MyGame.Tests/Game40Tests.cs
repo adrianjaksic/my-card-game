@@ -2,20 +2,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyGame.BaseGame.Models;
 using MyGame.Game40Implementation.Realization;
 using System.Collections.Generic;
-using System.Linq;
+using MyGame.BaseGame.Extensions;
 
 namespace MyGame.Tests
 {
     [TestClass]
     public class Game40Tests
     {
+        private List<string> UserNames = new List<string> { "Player 1", "Player 2" };
+
         [TestMethod]
         public void TestNewGame()
         {
-            var game = new Game40();
+            var game = new Game40(UserNames);
             Assert.AreEqual(40, game.Deck.Count);
 
-            game.NewGame(new List<string> { "Player 1", "Player 2" });
+            game.NewGame();
 
             Assert.AreEqual(2, game.Users.Count);
             foreach (var user in game.Users)
@@ -27,8 +29,8 @@ namespace MyGame.Tests
         [TestMethod]
         public void TestFirstRound()
         {
-            var game = new Game40();
-            game.NewGame(new List<string> { "Player 1", "Player 2" });
+            var game = new Game40(UserNames);
+            game.NewGame();
             game.DoRound();
 
             Assert.AreEqual(2, game.Users.Count);
@@ -43,12 +45,11 @@ namespace MyGame.Tests
         [TestMethod]
         public void NoDrawPileUseDiscardPile()
         {
-            var game = new Game40();
-            game.NewGame(new List<string> { "Player 1", "Player 2" });
+            var game = new Game40(UserNames);
+            game.NewGame();
             foreach (var user in game.Users)
             {
-                user.DiscardPile = user.DrawPile.ToList();
-                user.DrawPile.Clear();
+                user.DiscardPile.AddToStackAndEmptySource(user.DrawPile);
             }
 
             game.DoRound();
@@ -64,8 +65,8 @@ namespace MyGame.Tests
         [TestMethod]
         public void HigherCardWins()
         {
-            var game = new Game40();
-            game.NewGame(new List<string> { "Player 1", "Player 2" });
+            var game = new Game40(UserNames);
+            game.NewGame();
 
             game.Users[0].DrawPile.Push(new Card() { Value = 1 });
             game.Users[1].DrawPile.Push(new Card() { Value = 2 });
@@ -77,8 +78,8 @@ namespace MyGame.Tests
         [TestMethod]
         public void NextRoundWinner()
         {
-            var game = new Game40();
-            game.NewGame(new List<string> { "Player 1", "Player 2" });
+            var game = new Game40(UserNames);
+            game.NewGame();
 
             game.Users[0].DrawPile.Push(new Card() { Value = 1 });
             game.Users[1].DrawPile.Push(new Card() { Value = 2 });

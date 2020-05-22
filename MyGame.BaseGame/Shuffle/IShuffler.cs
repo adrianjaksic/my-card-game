@@ -4,6 +4,7 @@ namespace MyGame.BaseGame.Shuffle
 {
     public interface IShuffler<T>
     {
-        List<T> Shuffle(List<T> items);
+        void ShuffleStack(Stack<T> items);
+        IEnumerable<T> Shuffle(IEnumerable<T> items);
     }
 }

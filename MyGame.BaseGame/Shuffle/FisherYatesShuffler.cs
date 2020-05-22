@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyGame.BaseGame.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace MyGame.BaseGame.Shuffle
             _randomFunc = new Random(DateTime.Now.Millisecond).Next;
         }
 
-        public List<T> Shuffle(List<T> items)
+        public IEnumerable<T> Shuffle(IEnumerable<T> items)
         {
             var array = items.ToArray();
             int n = array.Length;
@@ -30,7 +31,17 @@ namespace MyGame.BaseGame.Shuffle
                 int r = i + Next(n - i);
                 ReplaceItems(array, i, r);
             }
-            return array.ToList();
+            return array;
+        }
+
+        public void ShuffleStack(Stack<T> items)
+        {
+            var array = Shuffle(items);
+            items.Clear();
+            foreach (var item in array)
+            {
+                items.Push(item);
+            }
         }
 
         private int Next(int max)

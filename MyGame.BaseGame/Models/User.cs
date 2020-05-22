@@ -11,9 +11,9 @@ namespace MyGame.BaseGame.Models
 
         public string Name { get; private set; }
 
-        public Stack<Card> DrawPile { get; set; } = new Stack<Card>();
+        public Stack<Card> DrawPile { get; private set; } = new Stack<Card>();
 
-        public List<Card> DiscardPile { get; set; } = new List<Card>();
+        public Stack<Card> DiscardPile { get; private set; } = new Stack<Card>();
 
         public Card Played { get; set; }
 
