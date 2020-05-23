@@ -7,18 +7,20 @@ namespace MyGame.BaseGame.Extensions
     {
         public static void AddToStackAndEmptySource<T>(this Stack<T> source, Stack<T> stack)
         {
-            while (stack.Count > 0)
+            T[] arr = new T[stack.Count];
+            stack.CopyTo(arr, 0);
+            for (int i = arr.Length - 1; i >= 0; i--)
             {
-                var item = stack.Pop();
-                source.Push(item);
+                source.Push(arr[i]);
             }
+            stack.Clear();
         }
 
         public static void AddToStackAndEmptySource<T>(this Stack<T> source, List<T> items)
         {
-            foreach (var item in items)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                source.Push(item);
+                source.Push(items[i]);
             }
             items.Clear();
         }
